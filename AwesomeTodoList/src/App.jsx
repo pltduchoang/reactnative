@@ -6,7 +6,7 @@
  */
 
 import React, { useState } from 'react';
-import { SafeAreaView } from 'react-native';
+import { Alert, SafeAreaView } from 'react-native';
 import ToDoForm from './ToDoForm';
 import ToDoList from './ToDoList';
 
@@ -17,10 +17,16 @@ function App() {
     'Walk the dog'
   ]);
 
+  const addMoreTask = (task) => {
+    if (task === '') return;
+    if (toDoList.includes(task)) {Alert.alert('Task already exists'); return};
+    setToDoList([...toDoList, task]);
+  };
+
   return (
     <SafeAreaView>
       <ToDoList tasks={toDoList} />
-      <ToDoForm />
+      <ToDoForm addTask={addMoreTask}/>
     </SafeAreaView>
   );
 }
